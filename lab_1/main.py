@@ -54,6 +54,20 @@ plt.hist(X, bins='fd', density=0)
 plt.grid(True)
 plt.show()
 
+counts, bin_edges = np.histogram(X, bins='fd')
+i_max = np.argmax(counts)
+mode_left, mode_right = bin_edges[i_max], bin_edges[i_max + 1]
+mode_count = counts[i_max]
+
+print(f'модальный интервал: [{mode_left:.3f}; {mode_right:.3f})')
+print(f'частота в нём: {mode_count}')
+print(f'оценка вероятности (относительная частота): {mode_count / n:.4f}')
+
+# оценка ФР в правой границе модального интервала
+F_hat = counts[:i_max + 1].sum() / n
+print(f'правая граница модального интервала: {mode_right:.4f}')
+print(f'оценка F̂(m_right) = {counts[:i_max+1].sum()}/{n} = {F_hat:.4f}')
+
 #2.3
 plt.title('Гистограмма относительных частот')
 plt.hist(X, bins='fd', density=1)
